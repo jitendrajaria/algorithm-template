@@ -6,16 +6,15 @@ MaxHeap.prototype.heapify = function (arr, i) {
   let largest = i;
   let lChild = 2 * i;
   let rChild = 2 * i + 1;
-  if (lChild < arr.length && arr[lChild] > arr[i]) {
+  if (lChild < arr.length && arr[lChild] > arr[largest]) {
     largest = lChild;
   }
-  if (rChild < arr.length && arr[rChild] > arr[i]) {
+  if (rChild < arr.length && arr[rChild] > arr[largest]) {
     largest = rChild;
   }
   if (i != largest) {
+    // console.log('largest', largest, i);
     [arr[largest], arr[i]] = [arr[i], arr[largest]];
-    console.log('largestAt End', i, arr[i]);
-
     this.heapify(arr, largest);
   }
 };
@@ -47,8 +46,8 @@ MaxHeap.prototype.remove = function () {
   let len = this.heap.length;
 
   let curr = 1;
-  let lChild = 2 * curr + 1;
-  let rChild = 2 * curr + 2;
+  let lChild = 2 * curr;
+  let rChild = 2 * curr + 1;
   if (len > 2) {
     this.heap[1] = this.heap[len - 1];
     this.heap.splice(len - 1, 1);
@@ -61,8 +60,8 @@ MaxHeap.prototype.remove = function () {
           [this.heap[lChild], this.heap[curr]] = [this.heap[curr], this.heap[lChild]];
           curr = lChild;
         }
-        lChild = curr * 2 + 1;
-        rChild = curr * 2 + 2;
+        lChild = curr * 2;
+        rChild = curr * 2 + 1;
       }
     } else if (this.heap[lChild] > this.heap[curr]) {
       [this.heap[lChild], this.heap[curr]] = [this.heap[curr], this.heap[lChild]];
@@ -79,14 +78,3 @@ MaxHeap.prototype.remove = function () {
 MaxHeap.prototype.getMax = function () {
   return this.heap[1];
 };
-
-const arr = [1, 3, 5, 7, 9, 11];
-const heap = new MaxHeap(arr);
-heap.push(12);
-heap.push(10);
-heap.push(6);
-heap.push(8);
-console.log(heap.remove());
-console.log(heap.remove());
-
-console.log(heap);
