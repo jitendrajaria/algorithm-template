@@ -51,7 +51,7 @@ MinHeap.prototype.remove = function () {
   if (len > 2) {
     this.heap[1] = this.heap[len - 1];
     this.heap.splice(len - 1, 1);
-    if (this.heap[lChild] && this.heap[rChild]) {
+    if (this.heap[lChild] != undefined && this.heap[rChild] != undefined) {
       while (this.heap[curr] > this.heap[rChild] || this.heap[curr] > this.heap[lChild]) {
         if (this.heap[rChild] < this.heap[lChild]) {
           [this.heap[rChild], this.heap[curr]] = [this.heap[curr], this.heap[rChild]];
